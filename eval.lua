@@ -20,10 +20,10 @@ cmd:text()
 cmd:text('Options')
 
 -- Input paths
-cmd:option('-model','','path to model to evaluate')
+cmd:option('-model','model_id1-501-1448236541.t7','path to model to evaluate')
 -- Basic options
 cmd:option('-batch_size', 1, 'if > 0 then overrule, otherwise load from checkpoint.')
-cmd:option('-num_images', 100, 'how many images to use when periodically evaluating the loss? (-1 = all)')
+cmd:option('-num_images', 10, 'how many images to use when periodically evaluating the loss? (-1 = all)')
 cmd:option('-language_eval', 0, 'Evaluate language as well (1 = yes, 0 = no)? BLEU/CIDEr/METEOR/ROUGE_L? requires coco-caption code from Github.')
 cmd:option('-dump_images', 1, 'Dump images into vis/imgs folder for vis? (1=yes,0=no)')
 cmd:option('-dump_json', 1, 'Dump json with predictions into vis folder? (1=yes,0=no)')
@@ -34,10 +34,10 @@ cmd:option('-beam_size', 2, 'used when sample_max = 1, indicates number of beams
 cmd:option('-temperature', 1.0, 'temperature when sampling from distributions (i.e. when sample_max = 0). Lower = "safer" predictions.')
 -- For evaluation on a folder of images:
 cmd:option('-image_folder', '', 'If this is nonempty then will predict on the images in this folder path')
-cmd:option('-image_root', '', 'In case the image paths have to be preprended with a root path to an image folder')
+cmd:option('-image_root', 'coco/images', 'In case the image paths have to be preprended with a root path to an image folder')
 -- For evaluation on MSCOCO images from some split:
-cmd:option('-input_h5','','path to the h5file containing the preprocessed dataset. empty = fetch from model checkpoint.')
-cmd:option('-input_json','','path to the json file containing additional info and vocab. empty = fetch from model checkpoint.')
+cmd:option('-input_h5','coco/cocotalk.h5','path to the h5file containing the preprocessed dataset. empty = fetch from model checkpoint.')
+cmd:option('-input_json','coco/cocotalk.json','path to the json file containing additional info and vocab. empty = fetch from model checkpoint.')
 cmd:option('-split', 'test', 'if running on MSCOCO images, which split to use: val|test|train')
 cmd:option('-coco_json', '', 'if nonempty then use this file in DataLoaderRaw (see docs there). Used only in MSCOCO test evaluation, where we have a specific json file of only test set images.')
 -- misc
