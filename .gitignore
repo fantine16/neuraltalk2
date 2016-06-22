@@ -10,3 +10,4 @@ checkpoints/
 *.zip
 *.txt
 model
+*.json
