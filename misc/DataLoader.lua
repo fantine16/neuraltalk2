@@ -1,4 +1,5 @@
 require 'hdf5'
+require 'image'
 local utils = require 'misc.utils'
 
 local DataLoader = torch.class('DataLoader')
@@ -103,6 +104,7 @@ function DataLoader:getBatch(opt)
                             {1,self.max_image_size},{1,self.max_image_size})
     img_batch_raw[i] = img
 
+
     -- fetch the sequence labels
     local ix1 = self.label_start_ix[ix]
     local ix2 = self.label_end_ix[ix]
@@ -136,6 +138,13 @@ function DataLoader:getBatch(opt)
   data.labels = label_batch:transpose(1,2):contiguous() -- note: make label sequences go down as columns
   data.bounds = {it_pos_now = self.iterators[split], it_max = #split_ix, wrapped = wrapped}
   data.infos = infos
+
+  for i=1, img_batch_raw:size(1) do
+  	image.display(img_batch_raw[i])
+  end
+  os.execute("sleep 25")
+  assert(false)
+
   return data
 end
 

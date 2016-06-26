@@ -21,8 +21,8 @@ cmd:text()
 cmd:text('Options')
 
 -- Data input settings
-cmd:option('-input_h5','coco/data.h5','path to the h5file containing the preprocessed dataset')
-cmd:option('-input_json','coco/data.json','path to the json file containing additional info and vocab')
+cmd:option('-input_h5','coco/cocotalk.h5','path to the h5file containing the preprocessed dataset')
+cmd:option('-input_json','coco/cocotalk.json','path to the json file containing additional info and vocab')
 cmd:option('-cnn_proto','model/VGG_ILSVRC_16_layers_deploy.prototxt','path to CNN prototxt file in Caffe format. Note this MUST be a VGGNet-16 right now.')
 cmd:option('-cnn_model','model/VGG_ILSVRC_16_layers.caffemodel','path to CNN model file containing the weights, Caffe format. Note this MUST be a VGGNet-16 right now.')
 cmd:option('-start_from', '', 'path to a model checkpoint to initialize model weights from. Empty = don\'t')
@@ -310,7 +310,8 @@ while true do
       val_lang_stats_history[iter] = lang_stats
     end
 
-    local checkpoint_path = path.join(opt.checkpoint_path, 'model_id' .. opt.id)
+    --local checkpoint_path = path.join(opt.checkpoint_path, 'model_id' .. opt.id)
+    local checkpoint_path = paths.concat('model_id' .. opt.id)
 
     -- write a (thin) json report
     local checkpoint = {}
