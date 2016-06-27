@@ -11,3 +11,4 @@ checkpoints/
 *.txt
 model
 *.json
+*.test
