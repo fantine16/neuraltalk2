@@ -136,6 +136,7 @@ function DataLoader:getBatch(opt)
   data.labels = label_batch:transpose(1,2):contiguous() -- note: make label sequences go down as columns
   data.bounds = {it_pos_now = self.iterators[split], it_max = #split_ix, wrapped = wrapped}
   data.infos = infos
+  
   return data
 end
 
