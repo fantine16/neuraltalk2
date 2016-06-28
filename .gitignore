@@ -11,3 +11,12 @@ checkpoints/
 *.t7
 *.test
 model
+*.t7
+*.json
+model
+*.zip
+.idea/
+images/
+images2/
+*.txt
+*.test
