@@ -6,3 +6,8 @@ vis/imgs/
 vis/vis.json
 testimages/
 checkpoints/
+*.txt
+*.json
+*.t7
+*.test
+model

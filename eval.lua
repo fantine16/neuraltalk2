@@ -77,6 +77,8 @@ for k,v in pairs(fetch) do
 end
 local vocab = checkpoint.vocab -- ix -> word mapping
 
+print(checkpoint.opt)
+assert(false)
 -------------------------------------------------------------------------------
 -- Create the Data Loader instance
 -------------------------------------------------------------------------------
