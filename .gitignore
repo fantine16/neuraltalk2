@@ -13,3 +13,5 @@ model
 .idea/
 images/
 images2/
+*.txt
+*.test
