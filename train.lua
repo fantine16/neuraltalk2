@@ -37,11 +37,7 @@ cmd:option('-batch_size',10,'what is the batch size in number of images per batc
 cmd:option('-grad_clip',0.1,'clip gradients at this value (note should be lower than usual 5 because we normalize grads by both batch and seq_length)')
 cmd:option('-drop_prob_lm', 0.5, 'strength of dropout in the Language Model RNN')
 cmd:option('-finetune_cnn_after', 0, 'After what iteration do we start finetuning the CNN? (-1 = disable; never finetune, 0 = finetune from start)')
-<<<<<<< HEAD
 cmd:option('-seq_per_img',5,'number of captions to sample for each image during training. Done for efficiency since CNN forward pass is expensive. E.g. coco has 5 sents/image')
-=======
-cmd:option('-seq_per_img',1,'number of captions to sample for each image during training. Done for efficiency since CNN forward pass is expensive. E.g. coco has 5 sents/image')
->>>>>>> 0a1324f349037c043f9e7162ae706ae98246572b
 -- Optimization: for the Language Model
 cmd:option('-optim','adam','what update to use? rmsprop|sgd|sgdmom|adagrad|adam')
 cmd:option('-learning_rate',4e-4,'learning rate')
@@ -58,11 +54,7 @@ cmd:option('-cnn_learning_rate',1e-5,'learning rate for the CNN')
 cmd:option('-cnn_weight_decay', 0, 'L2 weight decay just for the CNN')
 
 -- Evaluation/Checkpointing
-<<<<<<< HEAD
 cmd:option('-val_images_use', 16, 'how many images to use when periodically evaluating the validation loss? (-1 = all)')
-=======
-cmd:option('-val_images_use', 10, 'how many images to use when periodically evaluating the validation loss? (-1 = all)')
->>>>>>> 0a1324f349037c043f9e7162ae706ae98246572b
 cmd:option('-save_checkpoint_every', 100, 'how often to save a model checkpoint?')
 cmd:option('-checkpoint_path', '', 'folder to save checkpoints into (empty = this folder)')
 cmd:option('-language_eval', 0, 'Evaluate language as well (1 = yes, 0 = no)? BLEU/CIDEr/METEOR/ROUGE_L? requires coco-caption code from Github.')
