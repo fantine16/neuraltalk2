@@ -115,7 +115,7 @@ function DataLoader:getBatch(opt)
 		imgs_per_story=self.h5_file:read('/images'):partial({images_per_story*(ix-1) + 1, images_per_story*ix},{1,self.num_channels},{1,self.max_image_size},{1,self.max_image_size})
 		labels_per_story=self.h5_file:read('/labels'):partial({images_per_story*(ix-1) + 1, images_per_story*ix}, {1,self.seq_length})
 		-- debug!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-		print(torch.type(imgs_per_story))
+		--print(torch.type(imgs_per_story))
 
 		onestory.images=imgs_per_story
 		onestory.labels=labels_per_story:contiguous() --:transpose(1,2) :contiguous()-- note: make label sequences go down as columns
