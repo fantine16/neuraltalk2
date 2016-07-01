@@ -137,16 +137,16 @@ function DataLoader:getBatch(opt)
 			--print('t=' .. t .. ';k=' .. k)
 			im[k]=story_batch[k].images[t]
 			la[k]=story_batch[k].labels[t]
-			-- debug!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-			image.display(im[k])
-			print(im[k])
+
+			--image.display(im[k])
+			--os.execute("sleep 5")
 		end
 		table.insert(imgs,im)
 		table.insert(labels,la)
 	end
 	-- debug!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-	os.execute("sleep 5")
-	assert(false)
+	--os.execute("sleep 5")
+	--assert(false)
 
 	img_batch_raw = imgs[1]
 	label_batch = labels[1]

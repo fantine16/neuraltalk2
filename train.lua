@@ -21,8 +21,8 @@ cmd:text()
 cmd:text('Options')
 
 -- Data input settings
-cmd:option('-input_h5','/home/liuchang/storytelling/dataset/storytelling.h5','path to the h5file containing the preprocessed dataset')
-cmd:option('-input_json','/home/liuchang/storytelling/dataset/storytelling.json','path to the json file containing additional info and vocab')
+cmd:option('-input_h5','','path to the h5file containing the preprocessed dataset')
+cmd:option('-input_json','','path to the json file containing additional info and vocab')
 cmd:option('-cnn_proto','model/VGG_ILSVRC_16_layers_deploy.prototxt','path to CNN prototxt file in Caffe format. Note this MUST be a VGGNet-16 right now.')
 cmd:option('-cnn_model','model/VGG_ILSVRC_16_layers.caffemodel','path to CNN model file containing the weights, Caffe format. Note this MUST be a VGGNet-16 right now.')
 cmd:option('-start_from', '', 'path to a model checkpoint to initialize model weights from. Empty = don\'t')
@@ -33,7 +33,7 @@ cmd:option('-input_encoding_size',768,'the encoding size of each token in the vo
 
 -- Optimization: General
 cmd:option('-max_iters', -1, 'max number of iterations to run for (-1 = run forever)')
-cmd:option('-batch_size',1,'what is the batch size in number of images per batch? (there will be x seq_per_img sentences)')
+cmd:option('-batch_size',10,'what is the batch size in number of images per batch? (there will be x seq_per_img sentences)')
 cmd:option('-grad_clip',0.1,'clip gradients at this value (note should be lower than usual 5 because we normalize grads by both batch and seq_length)')
 cmd:option('-drop_prob_lm', 0.75, 'strength of dropout in the Language Model RNN')
 cmd:option('-finetune_cnn_after', 0, 'After what iteration do we start finetuning the CNN? (-1 = disable; never finetune, 0 = finetune from start)')
@@ -58,8 +58,8 @@ cmd:option('-cnn_learning_rate',1e-5,'learning rate for the CNN')
 cmd:option('-cnn_weight_decay', 0, 'L2 weight decay just for the CNN')
 
 -- Evaluation/Checkpointing
-cmd:option('-val_images_use', 20, 'how many images to use when periodically evaluating the validation loss? (-1 = all)')
-cmd:option('-save_checkpoint_every', 200, 'how often to save a model checkpoint?')
+cmd:option('-val_images_use', 10, 'how many images to use when periodically evaluating the validation loss? (-1 = all)')
+cmd:option('-save_checkpoint_every', 100, 'how often to save a model checkpoint?')
 cmd:option('-checkpoint_path', '', 'folder to save checkpoints into (empty = this folder)')
 cmd:option('-language_eval', 0, 'Evaluate language as well (1 = yes, 0 = no)? BLEU/CIDEr/METEOR/ROUGE_L? requires coco-caption code from Github.')
 cmd:option('-losses_log_every', 25, 'How often do we snapshot losses, for inclusion in the progress dump? (0 = disable)')
@@ -182,7 +182,7 @@ local function eval_split(split, evalopt)
   while true do
 
     -- fetch a batch of data
-    local data = loader:getBatch{batch_size = opt.batch_size, split = split, seq_per_img = opt.seq_per_img}
+    local data = loader:getBatch{batch_size = opt.batch_size, split = split, seq_per_img = opt.seq_per_img, images_use_per_story = opt.images_use_per_story}
     data.images = net_utils.prepro(data.images, false, opt.gpuid >= 0) -- preprocess in place, and don't augment
     n = n + data.images:size(1)
 
@@ -317,6 +317,11 @@ while true do
 
     --local checkpoint_path = path.join(opt.checkpoint_path, 'model_id' .. opt.id)
     local checkpoint_path = paths.concat('model_id' .. opt.id)
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> 11ba894158a6d2071bfb9abdac59563f094dca79
     -- write a (thin) json report
     local checkpoint = {}
     checkpoint.opt = opt

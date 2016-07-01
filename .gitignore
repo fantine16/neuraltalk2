@@ -12,3 +12,6 @@ checkpoints/
 model
 *.json
 *.test
+.idea/
+images/
+images2/
