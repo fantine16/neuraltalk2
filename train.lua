@@ -21,8 +21,8 @@ cmd:text()
 cmd:text('Options')
 
 -- Data input settings
-cmd:option('-input_h5','','path to the h5file containing the preprocessed dataset')
-cmd:option('-input_json','','path to the json file containing additional info and vocab')
+cmd:option('-input_h5','sind/storytelling.h5','path to the h5file containing the preprocessed dataset')
+cmd:option('-input_json','sind/storytelling.json','path to the json file containing additional info and vocab')
 cmd:option('-cnn_proto','model/VGG_ILSVRC_16_layers_deploy.prototxt','path to CNN prototxt file in Caffe format. Note this MUST be a VGGNet-16 right now.')
 cmd:option('-cnn_model','model/VGG_ILSVRC_16_layers.caffemodel','path to CNN model file containing the weights, Caffe format. Note this MUST be a VGGNet-16 right now.')
 cmd:option('-start_from', '', 'path to a model checkpoint to initialize model weights from. Empty = don\'t')
@@ -33,7 +33,7 @@ cmd:option('-input_encoding_size',768,'the encoding size of each token in the vo
 
 -- Optimization: General
 cmd:option('-max_iters', -1, 'max number of iterations to run for (-1 = run forever)')
-cmd:option('-batch_size',10,'what is the batch size in number of images per batch? (there will be x seq_per_img sentences)')
+cmd:option('-batch_size',16,'what is the batch size in number of images per batch? (there will be x seq_per_img sentences)')
 cmd:option('-grad_clip',0.1,'clip gradients at this value (note should be lower than usual 5 because we normalize grads by both batch and seq_length)')
 cmd:option('-drop_prob_lm', 0.75, 'strength of dropout in the Language Model RNN')
 cmd:option('-finetune_cnn_after', 0, 'After what iteration do we start finetuning the CNN? (-1 = disable; never finetune, 0 = finetune from start)')
@@ -317,11 +317,7 @@ while true do
 
     --local checkpoint_path = path.join(opt.checkpoint_path, 'model_id' .. opt.id)
     local checkpoint_path = paths.concat('model_id' .. opt.id)
-<<<<<<< HEAD
-=======
 
-
->>>>>>> 11ba894158a6d2071bfb9abdac59563f094dca79
     -- write a (thin) json report
     local checkpoint = {}
     checkpoint.opt = opt
