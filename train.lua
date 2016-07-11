@@ -202,7 +202,7 @@ local function eval_split(split, evalopt)
       table.insert(predictions, entry)
       if verbose then
         print(string.format('image %s: %s', entry.image_id, entry.caption))
-        print(sents[k])
+        --print(sents[k])
       end
     end
 
