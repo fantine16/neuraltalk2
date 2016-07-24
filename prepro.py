@@ -32,6 +32,7 @@ import string
 import h5py
 import numpy as np
 from scipy.misc import imread, imresize
+import cv2
 
 def prepro_captions(imgs):
   
@@ -182,7 +183,12 @@ def main(params):
   dset = f.create_dataset("images", (N,3,256,256), dtype='uint8') # space for resized images
   for i,img in enumerate(imgs):
     # load the image
-    I = imread(os.path.join(params['images_root'], img['file_path']))
+    if img['file_path'].encode('utf-8').endswith('gif'):
+      I = imread(os.path.join(params['images_root'], img['file_path'].encode('utf-8')))
+      print('python IMAGE read from: ' + params['images_root'], img['file_path'].encode('utf-8'))
+    else:
+      I = cv2.imread(os.path.join(params['images_root'], img['file_path'].encode('utf-8')))
+      I = cv2.cvtColor(I, cv2.COLOR_BGR2RGB)
     try:
         Ir = imresize(I, (256,256))
     except:
@@ -222,16 +228,16 @@ if __name__ == "__main__":
   parser = argparse.ArgumentParser()
 
   # input json
-  parser.add_argument('--input_json', required=True, help='input json file to process into hdf5')
-  parser.add_argument('--num_val', required=True, type=int, help='number of images to assign to validation data (for CV etc)')
-  parser.add_argument('--output_json', default='data.json', help='output json file')
-  parser.add_argument('--output_h5', default='data.h5', help='output h5 file')
+  parser.add_argument('--input_json', default='sind/dii_raw_set.json', help='input json file to process into hdf5')
+  parser.add_argument('--num_val', default=5000, type=int, help='number of images to assign to validation data (for CV etc)')
+  parser.add_argument('--output_json', default='sind/dii_data.json', help='output json file')
+  parser.add_argument('--output_h5', default='sind/dii_data.h5', help='output h5 file')
   
   # options
   parser.add_argument('--max_length', default=16, type=int, help='max length of a caption, in number of words. captions longer than this get clipped.')
   parser.add_argument('--images_root', default='', help='root location in which images are stored, to be prepended to file_path in input json')
   parser.add_argument('--word_count_threshold', default=5, type=int, help='only words that occur more than this number of times will be put in vocab')
-  parser.add_argument('--num_test', default=0, type=int, help='number of test images (to withold until very very end)')
+  parser.add_argument('--num_test', default=5000, type=int, help='number of test images (to withold until very very end)')
 
   args = parser.parse_args()
   params = vars(args) # convert to ordinary dict
